@@ -32,6 +32,24 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Configure Native App Icon
+        run: |
+          # Remove default Capacitor adaptive icons that override custom icons
+          rm -rf android/app/src/main/res/mipmap-anydpi-v26
+
+          # Copy icon.png to all Android launcher icon resolutions
+          ICON_PATH="www/icon.png"
+          if [ ! -f "$ICON_PATH" ]; then
+            ICON_PATH="icon.png"
+          fi
+
+          for dir in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
+            mkdir -p "android/app/src/main/res/$dir"
+            cp "$ICON_PATH" "android/app/src/main/res/$dir/ic_launcher.png"
+            cp "$ICON_PATH" "android/app/src/main/res/$dir/ic_launcher_round.png"
+          done
+          echo "Custom icon applied successfully from $ICON_PATH"
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
