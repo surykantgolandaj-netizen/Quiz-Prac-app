@@ -141,7 +141,33 @@
         </main>
     </div>
 
-    <!-- Install App Guidance Modal (Mobile + Desktop) -->
+    <!-- Install App Guidance Modal (Desktop Instructions) -->
+    <div id="installGuideModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-box">
+            <div class="modal-header-icon">💻</div>
+            <h3>Install Quiz Studio App</h3>
+            <p class="modal-subtitle">Install Quiz Studio as a standalone desktop application with offline support and a dedicated launch window:</p>
+            <div class="install-steps-list">
+                <div class="install-step-item">
+                    <span class="step-num">1</span>
+                    <div class="step-desc"><strong>Google Chrome:</strong> Click the <strong>Install</strong> icon <code class="code-pill">⊕</code> on the right side of the address bar, or click <strong>⋮ → Cast, save, and share → Install Quiz Studio...</strong></div>
+                </div>
+                <div class="install-step-item">
+                    <span class="step-num">2</span>
+                    <div class="step-desc"><strong>Microsoft Edge:</strong> Click the <strong>App available</strong> icon <code class="code-pill">⊞</code> in the address bar, or click <strong>… → Apps → Install this site as an app</strong>.</div>
+                </div>
+                <div class="install-step-item">
+                    <span class="step-num">3</span>
+                    <div class="step-desc"><strong>macOS Safari:</strong> Click <strong>File → Add to Dock...</strong> from the top menu bar to create a standalone Mac app.</div>
+                </div>
+            </div>
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button type="button" id="closeInstallGuideBtn" class="modal-btn primary">
+                    <span>Got it</span>
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- Naming Modal (Mandatory to create any new quiz) -->
     <div id="saveModal" class="modal-overlay" aria-hidden="true">
