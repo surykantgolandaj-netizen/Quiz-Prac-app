@@ -32,6 +32,23 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Generate Native App Icons
+        run: |
+          mkdir -p assets
+          if [ -f "icon.png" ]; then
+            cp icon.png assets/icon.png
+          elif [ -f "www/icon-512.png" ]; then
+            cp www/icon-512.png assets/icon.png
+          elif [ -f "www/icon.png" ]; then
+            cp www/icon.png assets/icon.png
+          fi
+          if [ -f "assets/icon.png" ]; then
+            echo "Found app icon! Generating all Android launcher icon mipmaps..."
+            npx @capacitor/assets generate --android
+          else
+            echo "No custom icon found, using default Capacitor icon."
+          fi
+
       - name: Grant execute permission for Gradle
         run: chmod +x android/gradlew
 
