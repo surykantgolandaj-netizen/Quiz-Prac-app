@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- PWA Capabilities -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quiz Studio">
+    <meta name="theme-color" content="#090a0f">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%23090a0f'/%3E%3Cpath d='M280 64L160 288h96l-32 160 160-224h-96z' fill='%237c3aed' stroke='%23ffffff' stroke-width='16' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Background glowing ambient orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="app-layout">
+        <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+        <!-- Collapsible Left Sidebar (retracted by default) -->
+        <aside id="historySidebar" class="gemini-sidebar collapsed">
+            <div class="sidebar-brand">
+                <div class="brand-badge">⚡ QUIZ STUDIO</div>
+            </div>
+
+            <div class="sidebar-tabs">
+                <button type="button" id="tabNavBtn" class="sidebar-tab active">
+                    <span class="tab-icon">🎯</span> Questions
+                </button>
+                <button type="button" id="tabSavedBtn" class="sidebar-tab">
+                    <span class="tab-icon">📚</span> Saved Quizzes
+                </button>
+            </div>
+
+            <!-- View 1: Question Navigation Grid -->
+            <div id="questionNavPanel" class="sidebar-panel active">
+                <div class="nav-panel-header">
+                    <span class="sidebar-section-label">Quick Jump</span>
+                    <span id="navAnsweredCount" class="nav-count-badge">0 / 250</span>
+                </div>
+                <div class="nav-legend">
+                    <span class="legend-pill current"><span class="dot"></span>Current</span>
+                    <span class="legend-pill answered"><span class="dot"></span>Answered</span>
+                </div>
+                <div id="questionNavGrid" class="question-nav-grid">
+                    <!-- 250 question buttons dynamically generated -->
+                </div>
+            </div>
+
+            <!-- View 2: Saved Quiz Results -->
+            <div id="savedResultsPanel" class="sidebar-panel">
+                <div class="sidebar-section-label">Quiz History</div>
+                <div id="savedResultsList" class="saved-results-list"></div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-workspace">
+            <!-- Sleek Top Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button type="button" id="toggleSidebarButton" class="sidebar-toggle-btn" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+                        <span class="menu-icon">☰</span>
+                        <span class="menu-label">Menu</span>
+                    </button>
+                    <div class="quiz-info-badge">
+                        <span class="status-pulse"></span>
+                        <span id="activeQuizTitleHeader" class="active-quiz-name">Loading...</span>
+                    </div>
+                </div>
+
+                <div class="header-center">
+                    <button type="button" id="newQuizCenterButton" class="plus-quiz-btn" title="Start New Quiz" aria-label="Start New Quiz">
+                        <span class="plus-symbol">+</span>
+                    </button>
+                </div>
+
+                <div class="header-right">
+                    <button type="button" id="installAppBtn" class="install-app-btn" title="Install Quiz Studio as an App" aria-label="Install App">
+                        <span class="install-icon">📲</span>
+                        <span class="install-label">Install App</span>
+                    </button>
+                    <div class="progress-capsule" title="Answered Questions">
+                        <span id="questionCounter" class="question-counter">0 answered</span>
+                    </div>
+                    <button id="resetButton" class="reset-btn">Reset</button>
+                </div>
+            </header>
+
+            <!-- Active Quiz Taking View -->
+            <div id="quizWorkspace" class="quiz-workspace">
+                <div class="quiz-stage-wrapper">
+                    <!-- Edge Navigation Buttons -->
+                    <button type="button" id="edgePrevButton" class="edge-nav-btn edge-prev" title="Previous Question (Arrow Left)" aria-label="Previous Question">
+                        <span class="edge-arrow">‹</span>
+                        <span class="edge-tooltip">Prev</span>
+                    </button>
+
+                    <div class="quiz-container">
+                        <div class="quiz">
+                            <!-- 250 questions dynamically generated -->
+                        </div>
+                    </div>
+
+                    <button type="button" id="edgeNextButton" class="edge-nav-btn edge-next" title="Next Question (Arrow Right)" aria-label="Next Question">
+                        <span class="edge-arrow">›</span>
+                        <span class="edge-tooltip">Next</span>
+                    </button>
+                </div>
+
+                <div class="quiz-bottom-dock">
+                    <button id="submitButton" class="submit-button">
+                        <span>Submit Quiz</span>
+                        <span class="submit-sparkle">✦</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Results View -->
+            <div id="results" class="results gemini-results-view">
+                <div class="results-header-bar">
+                    <div class="results-title-group">
+                        <div class="results-kicker">SCORECARD &amp; SUMMARY</div>
+                        <h1 id="resultsViewTitle" class="results-title">Quiz Results</h1>
+                        <div id="resultsMetaSummary" class="results-meta"></div>
+                    </div>
+                    <div class="results-header-actions">
+                        <button type="button" id="backToQuizButton" class="action-btn back-btn">← Continue Quiz</button>
+                        <button type="button" id="printCurrentResultButton" class="action-btn">Print Results</button>
+                        <button type="button" id="downloadCurrentResultButton" class="action-btn primary-action">Download .html</button>
+                    </div>
+                </div>
+                <div id="resultsTableContainer" class="results-table-scroll"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Install App Guidance Modal (Mobile + Desktop) -->
+    <div id="installGuideModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-box">
+            <div class="modal-header-icon">📲</div>
+            <h3 id="installModalTitle">Install Quiz Studio App</h3>
+            <p id="installModalDesc" class="modal-subtitle">Install Quiz Studio directly on your device as a standalone app with offline capabilities and a dedicated home screen launcher:</p>
+            <div id="installStepsContainer" class="install-steps-list">
+                <!-- Dynamically populated based on device -->
+            </div>
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button type="button" id="downloadApkFallbackBtn" class="modal-btn secondary" style="display: none;">
+                    <span>Download APK file</span>
+                </button>
+                <button type="button" id="closeInstallGuideBtn" class="modal-btn primary">
+                    <span>Got it</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Naming Modal (Mandatory to create any new quiz) -->
+    <div id="saveModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-box">
+            <div class="modal-header-icon">✨</div>
+            <h3 id="modalHeading">Name Your Quiz</h3>
+            <p id="modalDescription" class="modal-subtitle">Give your new quiz session a distinctive title. It will be saved into your <strong>Quiz History</strong> sidebar:</p>
+            <input type="text" id="fileNameInput" class="modal-input" value="Quiz 1" placeholder="e.g. Neuroscience Prep Part 1" autocomplete="off">
+            <div class="modal-actions">
+                <button type="button" id="saveSessionButton" class="modal-btn primary">
+                    <span>Start Quiz</span>
+                    <span>→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
