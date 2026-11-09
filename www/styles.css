@@ -532,22 +532,6 @@ html, body {
     z-index: 2;
 }
 
-.install-app-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(217, 70, 239, 0.25));
-    border: 1px solid rgba(168, 85, 247, 0.45);
-    color: #e9d5ff;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
 .progress-capsule {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1047,23 +1031,6 @@ html, body {
     background: var(--primary-gradient);
 }
 
-.install-steps-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.install-step-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 10px 12px;
-    border-radius: 10px;
-}
-
 .step-num {
     display: inline-flex;
     align-items: center;
@@ -1113,14 +1080,6 @@ html, body {
     .quiz-info-badge {
         max-width: 90px;
         padding: 4px 8px;
-    }
-
-    .install-label {
-        display: none;
-    }
-
-    .install-app-btn {
-        padding: 6px 8px;
     }
 }
 
@@ -1200,10 +1159,6 @@ html, body {
     .header {
         padding: 0 6px;
         gap: 4px;
-    }
-
-    .install-app-btn {
-        padding: 5px 7px;
     }
 
     .question-nav-grid {
