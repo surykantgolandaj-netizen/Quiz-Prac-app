@@ -84,10 +84,6 @@
                 </div>
 
                 <div class="header-right">
-                    <button type="button" id="installAppBtn" class="install-app-btn" title="Install Quiz Studio as an App" aria-label="Install App">
-                        <span class="install-icon">📲</span>
-                        <span class="install-label">Install App</span>
-                    </button>
                     <div class="progress-capsule" title="Answered Questions">
                         <span id="questionCounter" class="question-counter">0 answered</span>
                     </div>
@@ -144,24 +140,6 @@
     </div>
 
     <!-- Install App Guidance Modal (Mobile + Desktop) -->
-    <div id="installGuideModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-box">
-            <div class="modal-header-icon">📲</div>
-            <h3 id="installModalTitle">Install Quiz Studio App</h3>
-            <p id="installModalDesc" class="modal-subtitle">Install Quiz Studio directly on your device as a standalone app with offline capabilities and a dedicated home screen launcher:</p>
-            <div id="installStepsContainer" class="install-steps-list">
-                <!-- Dynamically populated based on device -->
-            </div>
-            <div class="modal-actions" style="margin-top: 20px;">
-                <button type="button" id="downloadApkFallbackBtn" class="modal-btn secondary" style="display: none;">
-                    <span>Download APK file</span>
-                </button>
-                <button type="button" id="closeInstallGuideBtn" class="modal-btn primary">
-                    <span>Got it</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Naming Modal (Mandatory to create any new quiz) -->
     <div id="saveModal" class="modal-overlay" aria-hidden="true">
